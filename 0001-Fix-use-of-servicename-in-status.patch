@@ -1,0 +1,30 @@
+From f55f3699beed5e062bb3b4b1e040f1b427790bb9 Mon Sep 17 00:00:00 2001
+From: Colin Walters <walters@verbum.org>
+Date: Fri, 9 Jul 2010 11:48:53 -0400
+Subject: [PATCH] Fix use of $servicename in status
+
+See https://bugzilla.redhat.com/show_bug.cgi?id=521797
+
+We have two init scripts, and commit 05283235632bc8891aaa3047563cb4
+patched the "wrong" (i.e. slackware) one.  Patch one that ships
+with real operating systems too.
+---
+ bus/messagebus.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/bus/messagebus.in b/bus/messagebus.in
+index 1f1004b..3e2ee07 100755
+--- a/bus/messagebus.in
++++ b/bus/messagebus.in
+@@ -68,7 +68,7 @@ case "$1" in
+         stop
+         ;;
+     status)
+-        status $processname
++        status $servicename
+         RETVAL=$?
+         ;;
+     restart)
+-- 
+1.6.6.1
+
