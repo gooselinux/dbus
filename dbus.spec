@@ -10,7 +10,7 @@ Summary: D-BUS message bus
 Name: dbus
 Epoch: 1
 Version: 1.2.24
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.freedesktop.org/software/dbus/
 Source0: http://dbus.freedesktop.org/releases/dbus/%{name}-%{version}.tar.gz
 Source1: doxygen_to_devhelp.xsl
@@ -43,6 +43,9 @@ Patch0: bindir.patch
 Patch1: dbus-1.0.1-generate-xml-docs.patch
 # Backported from upstream dbus-1.2
 Patch2: 0001-Fix-use-of-servicename-in-status.patch
+
+# Upstream fix for CVE-2010-4352
+Patch3: CVE-2010-4352.patch
 
 %description
 D-BUS is a system for sending messages between applications. It is
@@ -97,6 +100,7 @@ in this separate package so server systems need not install X.
 %patch0 -p1 -b .bindir
 %patch1 -p1 -b .generate-xml-docs
 %patch2 -p1 -b .service
+%patch3 -p1
 
 autoreconf -f -i
 
@@ -232,6 +236,10 @@ fi
 %{_includedir}/*
 
 %changelog
+* Fri Mar 18 2011 Colin Walters <walters@verbum.org> - 1:1.2.24-4
+- Apply patch for CVE-2010-4352
+- Resolves: #684852
+
 * Mon Aug  9 2010 Colin Walters <walters@redhat.com> - 1:1.2.24-3
 - Actually apply previous patch
 - Resolves: #585119
